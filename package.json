@@ -20,9 +20,9 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
-    "typescript": "^5.4.4",
     "@types/bun": "latest",
     "drizzle-kit": "^0.20.14",
-    "pg": "^8.11.3"
+    "pg": "^8.11.3",
+    "typescript": "^5.4.4"
   }
 }
