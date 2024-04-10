@@ -4,6 +4,7 @@ import {registerRestaurant} from "./routes/register-restaurant.ts";
 import {authenticateFromLink} from "./routes/authenticate-from-link.ts";
 import {signOut} from "./routes/sign-out.ts";
 import {getProfile} from "./routes/get-profile.ts";
+import {getManagedRestaurant} from "./routes/get-managed-restaurant.ts";
 
 const app = new Elysia()
   .use(registerRestaurant)
@@ -11,6 +12,7 @@ const app = new Elysia()
   .use(authenticateFromLink)
   .use(signOut)
   .use(getProfile)
+  .use(getManagedRestaurant)
 
 app.listen(3333, () => {
   console.log('HTTP Server Running...')
