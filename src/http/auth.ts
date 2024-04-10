@@ -5,7 +5,7 @@ import {env} from '../env'
 
 const jwtPayload = t.Object({
   sub: t.String(),
-  restauranteId: t.Optional(t.String()),
+  restaurantId: t.Optional(t.String()),
 })
 
 export const auth = new Elysia()
@@ -26,6 +26,18 @@ export const auth = new Elysia()
 
       signOut: async () => {
         auth.remove()
+      },
+
+      getCurrentUser: async () => {
+        const payload = await jwt.verify(auth.value)
+
+        if (!payload) {
+          throw new Error('Unauthorized.')
+        }
+
+        return {
+          userId: payload.sub,
+        }
       },
     }
   })

@@ -37,7 +37,7 @@ export const authenticateFromLink = new Elysia().use(auth).get(
 
     await signUser({
       sub: authLinkFromCode.userId,
-      restauranteId: managedRestaurant?.id,
+      restaurantId: managedRestaurant?.id,
     })
 
     auth.httpOnly = true
