@@ -10,6 +10,12 @@ import {approveOrder} from "./routes/approve-order.ts";
 import {dispatchOrder} from "./routes/dispatch-order.ts";
 import {deliverOrder} from "./routes/deliver-order.ts";
 import {cancelOrder} from "./routes/cancel-order.ts";
+import {getOrders} from "./routes/get-orders.ts";
+import {getMonthReceipt} from "./routes/get-month.receipt.ts";
+import {getDayOrdersAmount} from "./routes/get-day-orders-amount.ts";
+import {getMonthOrdersAmount} from "./routes/get-month-orders-amount.ts";
+import {getMonthCanceledOrdersAmount} from "./routes/get-month-canceled-orders-amount.ts";
+import {getDailyReceiptInPeriod} from "./routes/get-daily-receipt-in-period.ts";
 
 const app = new Elysia()
   .use(registerRestaurant)
@@ -23,12 +29,21 @@ const app = new Elysia()
   .use(cancelOrder)
   .use(deliverOrder)
   .use(dispatchOrder)
+  .use(getOrders)
+  .use(getMonthReceipt)
+  .use(getDayOrdersAmount)
+  .use(getMonthOrdersAmount)
+  .use(getMonthCanceledOrdersAmount)
+  .use(getDailyReceiptInPeriod)
   .onError(({code, error, set}) => {
     switch (code) {
       case 'VALIDATION': {
         set.status = error.status
 
         return error.toResponse()
+      }
+      case 'NOT_FOUND': {
+        return new Response(null, {status: 404})
       }
       default: {
         console.error(error)
